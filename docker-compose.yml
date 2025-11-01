@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  app:
+    build: ./php
+    container_name: cakephp_app
+    volumes:
+      - ./src:/var/www/html
+
+  nginx:
+    image: nginx:latest
+    container_name: cakephp_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+#   db:
+#     image: mysql:8.0
+#     container_name: cakephp_db
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: root
+#       MYSQL_DATABASE: cakephp
+#       MYSQL_USER: cakeuser
+#       MYSQL_PASSWORD: cakepass
+#     ports:
+#       - "3306:3306"
+#     volumes:
+#       - db_data:/var/lib/mysql
+
+# volumes:
+#   db_data:
