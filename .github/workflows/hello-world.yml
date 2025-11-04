@@ -42,5 +42,5 @@ jobs:
          # SSH接続して、git pullする
          echo "${{ secrets.GIT_PRIVATE_KEY }}" > private_key
          chmod 600 private_key
-         ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} -i private_key "cd /cake-php-sns-2 && git fetch --prune && git checkout main && git pull origin main"
+         ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} -i private_key "cd /cake-php-sns-2 && sudo git fetch --prune && sudo git checkout main && sudo git pull origin main"
 
