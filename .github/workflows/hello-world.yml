@@ -1,23 +1,22 @@
-# ワークフローの名前を定義する。GitHub Actionsタブでこの名前が表示される
-name: Hello World
-# ワークフローのトリガーとなるイベントを指定する
-on:
-  # すべてのブランチへのプッシュ時に実行
-  push:
-  # GitHub上から手動で実行する
-  workflow_dispatch:
+# Workflowの名前。任意に設定可能
+name: EC2 auto deploy
 
-# 実行するジョブを定義
+# アクションが実行されるタイミングを設定。今回はmainブランチにpushされた時。
+on:
+ push:
+   branches:
+     - main
+ 
+#実行される処理
 jobs:
-  # ジョブ名を定義（任意の名前を付けられる）
-  say-hello:
-    # ジョブを実行する仮想環境を指定する
+  build:
+    # 実行環境の指定
     runs-on: ubuntu-latest
-    # ジョブ内で実行する一連のステップを定義する
     steps:
-      # リポジトリのコードをチェックアウトするアクション
-      - name: Checkout code
-        uses: actions/checkout@v3
-      # シェルコマンドを実行するステップ（ここでHello, World!を出力する）
-      - name: Hello
-        run: echo "Hello, World!"
+      - name: Deploy
+        run: |
+          echo "${{ secrets.PRIVATE_KEY }}" > private_key
+          chmod 600 private_key
+          ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd cake-php-sns-2 &&
+          git fetch github.com:Dosa2021/cake-php-sns-2.git && git pull git@github.com:Dosa2021/cake-php-sns-2.git"
+         

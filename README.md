@@ -5,3 +5,6 @@ bin/cake server
 
 docker-compose up --build
 http://localhost:80/
+
+ec2
+docker compose up -d
