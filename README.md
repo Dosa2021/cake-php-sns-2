@@ -7,4 +7,5 @@ docker-compose up --build
 http://localhost:80/
 
 ec2
+composer install
 docker compose up -d
