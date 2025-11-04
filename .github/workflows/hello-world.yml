@@ -34,14 +34,23 @@ jobs:
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: ap-northeast-1
 
-     # デプロイする
-     - name: Deploy
-       run: |
-         # SSH接続して、git pullする
-         echo "${{ secrets.PRIVATE_KEY }}" > private_key
-         chmod 600 private_key
-         echo "${{ secrets.USER_NAME }}"
-         echo '${{ secrets.HOST_NAME }}'
-         ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd /cake-php-sns-2"
-         # ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd /cake-php-sns-2 && git fetch --prune && git checkout main && git pull origin main"
+     - name: Deploy to EC2
+       uses: appleboy/ssh-action@master
+       with:
+        host: ${{ secrets.HOST_NAME }}
+        username: ${{ secrets.USER_NAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        script: |
+          cd /cake-php-sns-2
+
+     ## デプロイする
+     #- name: Deploy
+     #  run: |
+     #    # SSH接続して、git pullする
+     #    echo "${{ secrets.PRIVATE_KEY }}" > private_key
+     #    chmod 600 private_key
+     #    echo "${{ secrets.USER_NAME }}"
+     #    echo '${{ secrets.HOST_NAME }}'
+     #    ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd /cake-php-sns-2"
+     #    # ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd /cake-php-sns-2 && git fetch --prune && git checkout main && git pull origin main"
 
