@@ -11,10 +11,15 @@ jobs:
     # 実行環境の指定
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
-        run: |
-          echo "${{ secrets.PRIVATE_KEY }}" > private_key
-          chmod 600 private_key
-          ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd cake-php-sns-2 &&
-          sudo git fetch github.com:Dosa2021/cake-php-sns-2.git && sudo git pull git@github.com:Dosa2021/cake-php-sns-2.git"
-         
+    - name: Checkout repository
+      uses: actions/checkout@v2  
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST_NAME }}
+        username: ${{ secrets.EC2_USER_NAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd cake-php-sns-2
+          git pull origin main
