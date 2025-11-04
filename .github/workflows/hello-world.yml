@@ -42,6 +42,6 @@ jobs:
          chmod 600 private_key
          echo "${{ secrets.USER_NAME }}"
          echo '${{ secrets.HOST_NAME }}'
-         ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd cake-php-sns-2 && git fetch --prune && git checkout main && git pull origin main && sudo docker compose restart"
+         ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd cake-php-sns-2 && git fetch --prune && git checkout feature/cicd && git pull origin feature/cicd && sudo docker compose restart"
          # ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd /cake-php-sns-2 && git fetch --prune && git checkout main && git pull origin main"
 
