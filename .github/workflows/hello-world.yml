@@ -41,6 +41,7 @@ jobs:
          echo "${{ secrets.PRIVATE_KEY }}" > private_key
          chmod 600 private_key
          echo "${{ secrets.USER_NAME }}"
+         echo '${{ secrets.HOST_NAME }}'
          ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd /cake-php-sns-2 && sudo git fetch --prune && sudo git checkout main && sudo git pull origin main"
          # ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd /cake-php-sns-2 && sudo git fetch --prune && sudo git checkout main && sudo git pull origin main"
 
