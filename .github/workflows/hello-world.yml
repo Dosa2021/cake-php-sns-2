@@ -1,7 +1,12 @@
 name: EC2 auto deploy
 
+env:
+  target_branch: feature/cicd
+
 on:
   push:
+    branches:
+      - ${{ env.target_branch }}
   workflow_dispatch:
 
 jobs:
@@ -36,7 +41,6 @@ jobs:
       # デプロイする
       - name: Deploy
         run: |
-          # SSH接続して、git pullする
           echo "${{ secrets.PRIVATE_KEY }}" > private_key
           chmod 600 private_key
           ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key "cd cake-php-sns-2 && git fetch --prune && git checkout feature/cicd && git pull origin feature/cicd && sudo docker compose restart"
