@@ -50,6 +50,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     <div class="header-image"><?= $this->Html->image('cake.logo.svg') ?></div>
     <div class="header-title">
         <h1>Welcome to CakePHP fugafuga11 <?= Configure::version() ?> Red Velvet. Build fast. Grow solid.</h1>
+        <?= debug('20251105-----'); ?>
     </div>
 </header>
 
