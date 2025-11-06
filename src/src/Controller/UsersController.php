@@ -9,7 +9,7 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            $post = $this->Users->patchEntity($user, $this->request->data);
+            $post = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success('Add successful');
                 return $this->redirect(['action'=>'add']);
