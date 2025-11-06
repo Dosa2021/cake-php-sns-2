@@ -3,10 +3,10 @@ name: EC2 auto deploy
 on:
   push:
     branches:
-      - feature/cicd
+      - feature/db
 
 env:
-  target_branch: feature/cicd
+  target_branch: feature/db
 
 jobs:
   build:
