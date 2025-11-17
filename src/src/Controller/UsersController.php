@@ -18,4 +18,16 @@ class UsersController extends AppController
             }
         }
     }
+
+    public function index()
+    {
+        $users = $this->Users->find('all');
+        $this->set('users', $users);
+    }
+
+    public function view($id = null)
+    {
+        debug('view------------');
+        debug($id);
+    }
 }
