@@ -10,10 +10,10 @@
         <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
     </ul>
 </nav> -->
-<div class="users form large-9 medium-8 columns content">
+<div class="mx-auto users-add form large-9 medium-8">
     <?= $this->Form->create($user) ?>
         <fieldset>
-            <legend><?= __('Add User') ?></legend>
+            <legend class="text-center"><?= __('Sign Up') ?></legend>
             <?php
                 echo $this->Form->control('name');
                 echo $this->Form->control('email');
@@ -23,6 +23,6 @@
                 ]);
             ?>
         </fieldset>
-        <?= $this->Form->button(__('Submit')) ?>
+        <?= $this->Form->button(__('Submit'), array('class'=>'text-center')) ?>
     <?= $this->Form->end() ?>
 </div>
