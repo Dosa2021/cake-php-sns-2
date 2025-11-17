@@ -23,6 +23,9 @@ https://qiita.com/kaba_farm/items/968e7d167089fcd96190#%E5%BF%85%E8%A6%81%E3%81%
 ・ec2内のdb設定
 https://specially198.com/create-a-lemp-environment-on-aws-ec2-and-install-cakephp/
 
+・エラーハンドリング
+https://qiita.com/n-sofue/items/8a3c50a74da214b29772#controller-1
+
 -------------------------------------------
 トラブル
 

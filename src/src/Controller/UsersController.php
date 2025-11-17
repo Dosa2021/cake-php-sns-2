@@ -9,10 +9,21 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            $post = $this->Users->patchEntity($user, $this->request->getData());
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $errors = $user->getErrors();
+            if (isset($errors['email'])) {
+                foreach($errors['email'] as $error){
+                    $this->Flash->error('【メールアドレス】' . $error);
+                }
+            }
+            if (isset($errors['password'])) {
+                foreach($errors['password'] as $error){
+                    $this->Flash->error('【パスワード】'. $error);
+                }
+            }
             if ($this->Users->save($user)) {
                 $this->Flash->success('Add successful');
-                return $this->redirect(['action'=>'add']);
+                return $this->redirect(['action'=>'view', $user->id]);
             } else {
               $this->Flash->error('Add error');
             }
