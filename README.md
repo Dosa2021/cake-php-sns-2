@@ -10,12 +10,21 @@ ec2
 composer install
 docker compose up -d
 
+bin/cake bake migration CreateUsers email:string password:string role:string created:DATETIME modified:DATETIME
+bin/cake migrations migrate
+bin/cake bake model Users
+https://qiita.com/jinto/items/fe1da36b65fd6e704338
+
+
 -------------------------------------------
 ・db接続、環境変数
 https://qiita.com/kaba_farm/items/968e7d167089fcd96190#%E5%BF%85%E8%A6%81%E3%81%AA%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E4%BD%9C%E6%88%90
 
 ・ec2内のdb設定
 https://specially198.com/create-a-lemp-environment-on-aws-ec2-and-install-cakephp/
+
+・エラーハンドリング
+https://qiita.com/n-sofue/items/8a3c50a74da214b29772#controller-1
 
 -------------------------------------------
 トラブル

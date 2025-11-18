@@ -3,10 +3,10 @@ name: EC2 auto deploy
 on:
   push:
     branches:
-      - feature/db
+      - feature/signup
 
 env:
-  target_branch: feature/db
+  target_branch: feature/signup
 
 jobs:
   build:
