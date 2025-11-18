@@ -11,6 +11,11 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $errors = $user->getErrors();
+            if (isset($errors['name'])) {
+                foreach($errors['name'] as $error){
+                    $this->Flash->error('【名前】' . $error);
+                }
+            }
             if (isset($errors['email'])) {
                 foreach($errors['email'] as $error){
                     $this->Flash->error('【メールアドレス】' . $error);
