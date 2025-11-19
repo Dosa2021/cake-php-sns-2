@@ -66,8 +66,6 @@ class UsersTable extends Table
             ->scalar('password')
             ->maxLength('password', 255)
             ->minLength('password', 6)
-
-
             ->requirePresence('password', 'create')
             ->notEmptyString('password');
 
