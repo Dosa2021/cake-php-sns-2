@@ -46,4 +46,20 @@ class UsersController extends AppController
         $user = $this->Users->get($id);
         $this->set('user', $user);
     }
+
+    public function login()
+    {
+        $login_user = $this->Auth->user();
+        debug('login_user-----');
+        debug($login_user);
+
+        if ($this->request->is('post')) {
+          $user = $this->Auth->identify();
+          if ($user) {
+            $this->Auth->setUser($user);
+            return $this->redirect(['action' => 'index']);
+          }
+          $this->Flash->error(__('Invalid username or password, try again'));
+        }
+    }
 }
