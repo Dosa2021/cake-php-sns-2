@@ -37,3 +37,6 @@ https://qiita.com/n-sofue/items/8a3c50a74da214b29772#controller-1
 
   o
   - 3307:3306
+
+②ログイン後、リダイレクトしない。。
+  → debugとか仕込んじゃダメ。。。？？？

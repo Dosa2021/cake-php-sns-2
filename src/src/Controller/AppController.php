@@ -64,22 +64,4 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
     }
-
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-        $controller = $this->request->getParam('controller');
-        if ($controller == 'Users') {
-            $this->Auth->setConfig('authenticate', [
-                'Form' => [
-                    'userModel' => 'Users',
-                    'fields' => [
-                        'username' => 'email',
-                        'password' => 'password'
-                    ]
-                ]
-            ]);
-            $this->Auth->setConfig('loginAction', ['controller' => 'Users', 'action' => 'login']);
-        }
-    }
 }
