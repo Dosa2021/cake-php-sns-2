@@ -12,6 +12,12 @@
       ); ?>
     </li>
     <?php if ($auth): ?>
+      <li>
+        <?= $this->Html->link(
+          'Logout',
+          ['controller' => 'Users', 'action' => 'logout']
+        ); ?>
+      </li>
     <?php else: ?>
       <li>
         <?= $this->Html->link(
@@ -22,3 +28,6 @@
     <?php endif; ?>
   </ul>
 </header>
+<script>
+    // console.log('JavaScript 動いてます！');
+</script>

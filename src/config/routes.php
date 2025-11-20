@@ -65,6 +65,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $routes->connect('/signup', ['controller' => 'Users', 'action' => 'add']);
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     $routes->connect('/users/:id', ['controller' => 'Users', 'action' => 'view']);
 
 

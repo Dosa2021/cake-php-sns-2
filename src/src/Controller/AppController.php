@@ -57,6 +57,7 @@ class AppController extends Controller
             ],
             'authError' => 'You are not authorized to access that location.',
             'unauthorizedRedirect' => $this->referer(),
+            'logoutRedirect' => ['controller' => 'Users', 'action' => 'login'],
         ]);
         $this->Auth->allow('display');
         /*

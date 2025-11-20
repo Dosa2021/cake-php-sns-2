@@ -58,4 +58,9 @@ class UsersController extends AppController
             $this->Flash->error(__('Invalid username or password, try again'));
         }
     }
+
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
 }
