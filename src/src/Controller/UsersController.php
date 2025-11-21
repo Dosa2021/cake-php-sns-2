@@ -51,6 +51,32 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id);
         $this->set('user', $user);
+
+        if ($this->request->is(['post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $errors = $user->getErrors();
+            if (isset($errors['name'])) {
+                foreach($errors['name'] as $error){
+                    $this->Flash->error('【名前】' . $error);
+                }
+            }
+            if (isset($errors['email'])) {
+                foreach($errors['email'] as $error){
+                    $this->Flash->error('【メールアドレス】' . $error);
+                }
+            }
+            if (isset($errors['password'])) {
+                foreach($errors['password'] as $error){
+                    $this->Flash->error('【パスワード】'. $error);
+                }
+            }
+            if ($this->Users->save($user)) {
+                $this->Flash->success('Add successful');
+                return $this->redirect(['action'=>'view', $user->id]);
+            } else {
+              $this->Flash->error('Add error');
+            }
+        }
     }
 
     public function login()
