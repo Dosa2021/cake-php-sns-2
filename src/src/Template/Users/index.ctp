@@ -22,7 +22,7 @@
         <tbody>
             <?php foreach ($users as $user): ?>
             <tr>
-                <td><?= h($user->name) ?></td>
+                <?= $this->element('user', ['user' => $user]) ?>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
