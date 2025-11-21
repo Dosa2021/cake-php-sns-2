@@ -3,10 +3,10 @@ name: EC2 auto deploy
 on:
   push:
     branches:
-      - feature/login-8
+      - feature/users-10
 
 env:
-  target_branch: feature/login-8
+  target_branch: feature/users-10
 
 jobs:
   build:

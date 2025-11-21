@@ -14,6 +14,12 @@
     <?php if ($auth): ?>
       <li>
         <?= $this->Html->link(
+          'Users',
+          ['controller' => 'Users', 'action' => 'index']
+        ); ?>
+      </li>
+      <li>
+        <?= $this->Html->link(
           'Logout',
           ['controller' => 'Users', 'action' => 'logout']
         ); ?>
