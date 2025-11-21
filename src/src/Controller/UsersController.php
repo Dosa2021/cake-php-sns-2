@@ -22,6 +22,7 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
+            $this->request->data('admin', false);
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $errors = $user->getErrors();
             $this->error_handling($errors);
@@ -64,6 +65,16 @@ class UsersController extends AppController
             } else {
               $this->Flash->error('Add error');
             }
+        }
+    }
+
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $user = $this->Users->get($id);
+        if ($this->Users->delete($user)) {
+            $this->Flash->success(__('The {0} article has been deleted.', $user->name));
+            return $this->redirect(['action' => 'index']);
         }
     }
 
