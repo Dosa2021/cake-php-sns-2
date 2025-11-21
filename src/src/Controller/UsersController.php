@@ -37,6 +37,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id);
+        $this->correct_user($user);
         $this->set('user', $user);
 
         if ($this->request->is(['post', 'put'])) {
@@ -86,6 +87,13 @@ class UsersController extends AppController
             foreach($errors['password'] as $error){
                 $this->Flash->error('【パスワード】'. $error);
             }
+        }
+    }
+
+    private function correct_user($user = null)
+    {
+        if (!($user->id === $this->Auth->user('id'))) {
+            return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
         }
     }
 }
