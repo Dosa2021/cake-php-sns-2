@@ -5,6 +5,19 @@ use App\Controller\AppController;
 
 class UsersController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
+
+    public $paginate = [
+        'limit' => 5,
+        'order' => [
+            'Users.id' => 'asc'
+        ]
+    ];
+
     public function add()
     {
         $user = $this->Users->newEntity();
@@ -25,7 +38,7 @@ class UsersController extends AppController
     public function index()
     {
         $users = $this->Users->find('all');
-        $this->set('users', $users);
+        $this->set('users', $this->paginate());
     }
 
     public function view($id = null)
