@@ -11,21 +11,8 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $errors = $user->getErrors();
-            if (isset($errors['name'])) {
-                foreach($errors['name'] as $error){
-                    $this->Flash->error('【名前】' . $error);
-                }
-            }
-            if (isset($errors['email'])) {
-                foreach($errors['email'] as $error){
-                    $this->Flash->error('【メールアドレス】' . $error);
-                }
-            }
-            if (isset($errors['password'])) {
-                foreach($errors['password'] as $error){
-                    $this->Flash->error('【パスワード】'. $error);
-                }
-            }
+            $this->error_handling($errors);
+
             if ($this->Users->save($user)) {
                 $this->Flash->success('Add successful');
                 return $this->redirect(['action'=>'view', $user->id]);
@@ -55,21 +42,8 @@ class UsersController extends AppController
         if ($this->request->is(['post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $errors = $user->getErrors();
-            if (isset($errors['name'])) {
-                foreach($errors['name'] as $error){
-                    $this->Flash->error('【名前】' . $error);
-                }
-            }
-            if (isset($errors['email'])) {
-                foreach($errors['email'] as $error){
-                    $this->Flash->error('【メールアドレス】' . $error);
-                }
-            }
-            if (isset($errors['password'])) {
-                foreach($errors['password'] as $error){
-                    $this->Flash->error('【パスワード】'. $error);
-                }
-            }
+            $this->error_handling($errors);
+
             if ($this->Users->save($user)) {
                 $this->Flash->success('Add successful');
                 return $this->redirect(['action'=>'view', $user->id]);
@@ -94,5 +68,24 @@ class UsersController extends AppController
     public function logout()
     {
         return $this->redirect($this->Auth->logout());
+    }
+
+    private function error_handling($errors = null)
+    {
+        if (isset($errors['name'])) {
+            foreach($errors['name'] as $error){
+                $this->Flash->error('【名前】' . $error);
+            }
+        }
+        if (isset($errors['email'])) {
+            foreach($errors['email'] as $error){
+                $this->Flash->error('【メールアドレス】' . $error);
+            }
+        }
+        if (isset($errors['password'])) {
+            foreach($errors['password'] as $error){
+                $this->Flash->error('【パスワード】'. $error);
+            }
+        }
     }
 }

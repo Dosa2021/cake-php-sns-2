@@ -69,5 +69,9 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event) {
         $this->set('auth',$this->Auth->user('name'));
+
+        if ($this->request->getParam('controller') === 'Users') {
+            $this->Auth->allow('add');
+        }
     }
 }
