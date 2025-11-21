@@ -13,6 +13,9 @@ docker compose up -d
 bin/cake bake migration CreateUsers email:string password:string role:string created:DATETIME modified:DATETIME
 bin/cake migrations migrate
 bin/cake bake model Users
+
+bin/cake migrations seed
+
 https://qiita.com/jinto/items/fe1da36b65fd6e704338
 
 
