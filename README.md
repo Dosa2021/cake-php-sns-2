@@ -13,6 +13,9 @@ docker compose up -d
 bin/cake bake migration CreateUsers email:string password:string role:string created:DATETIME modified:DATETIME
 bin/cake migrations migrate
 bin/cake bake model Users
+
+bin/cake migrations seed
+
 https://qiita.com/jinto/items/fe1da36b65fd6e704338
 
 
@@ -25,6 +28,10 @@ https://specially198.com/create-a-lemp-environment-on-aws-ec2-and-install-cakeph
 
 ・エラーハンドリング
 https://qiita.com/n-sofue/items/8a3c50a74da214b29772#controller-1
+
+10. ユーザの更新〜
+・railsのパーシャル的なやつ
+https://blog.ver-1-0.net/2017/01/04/cakephp3-partial/
 
 -------------------------------------------
 トラブル

@@ -25,5 +25,6 @@
             <td><?= h($user->email) ?></td>
         </tr>
     </table>
+    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
 </div>
 
