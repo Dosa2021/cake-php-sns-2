@@ -27,4 +27,9 @@
     </table>
     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
 </div>
+<div>
+    <?php foreach ($microposts as $micropost): ?>
+        <?= $micropost->content; ?>
+    <?php endforeach; ?>
+</div>
 
