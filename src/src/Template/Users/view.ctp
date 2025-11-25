@@ -26,5 +26,12 @@
         </tr>
     </table>
     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
+    <div class="col-md-8">
+        <h3>Microposts</h3>
+        <ul>
+            <?php foreach ($microposts as $micropost): ?>
+                <?= $this->element('micropost', ['micropost' => $micropost]) ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 </div>
-

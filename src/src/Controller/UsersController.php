@@ -45,7 +45,14 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id);
+        $microposts = (object)[];
+        $query = $this->Users->find()->contain('Microposts')->where(['id' => $this->Auth->user('id')]);
+        foreach ($query as $article) {
+            $microposts = $article->microposts;
+        }
+
         $this->set('user', $user);
+        $this->set('microposts', $microposts);
     }
 
     public function edit($id = null)
