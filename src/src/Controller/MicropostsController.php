@@ -55,13 +55,11 @@ class MicropostsController extends AppController
             $micropost = $this->Microposts->patchEntity($micropost, $this->request->getData());
             if ($this->Microposts->save($micropost)) {
                 $this->Flash->success(__('The micropost has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
             }
             $this->Flash->error(__('The micropost could not be saved. Please, try again.'));
         }
-        $user = $this->Microposts->User->find('list', ['limit' => 200]);
-        $this->set(compact('micropost', 'user'));
+        $this->set(compact('micropost'));
     }
 
     /**

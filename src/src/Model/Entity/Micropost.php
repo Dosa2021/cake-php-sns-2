@@ -7,6 +7,9 @@ use Cake\ORM\Entity;
  * Micropost Entity
  *
  * @property string|null $content
+ * @property \Cake\I18n\FrozenTime $created
+ * @property \Cake\I18n\FrozenTime $modified
+ *
  */
 class Micropost extends Entity
 {
@@ -21,5 +24,8 @@ class Micropost extends Entity
      */
     protected $_accessible = [
         'content' => true,
+        'user_id' => true,
+        'created' => true,
+        'modified' => true,
     ];
 }
