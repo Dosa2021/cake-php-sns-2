@@ -105,7 +105,6 @@ class MicropostsController extends AppController
         } else {
             $this->Flash->error(__('The micropost could not be deleted. Please, try again.'));
         }
-
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Users', 'action' => 'view', $this->Auth->user('id')]);
     }
 }

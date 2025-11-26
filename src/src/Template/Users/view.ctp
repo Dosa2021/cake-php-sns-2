@@ -30,7 +30,7 @@
         <h3>Microposts</h3>
         <ul>
             <?php foreach ($microposts as $micropost): ?>
-                <?= $this->element('micropost', ['micropost' => $micropost]) ?>
+                <?= $this->element('micropost', ['micropost' => $micropost, 'user' => $user]) ?>
             <?php endforeach; ?>
         </ul>
     </div>
