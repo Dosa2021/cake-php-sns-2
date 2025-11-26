@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class AddNameToMicroposts extends AbstractMigration
+class CreateMicroposts extends AbstractMigration
 {
     /**
      * Change Method.
@@ -13,11 +13,24 @@ class AddNameToMicroposts extends AbstractMigration
     public function change()
     {
         $table = $this->table('microposts');
+        $table->addColumn('content', 'string', [
+            'default' => null,
+            'limit' => 255,
+            'null' => false,
+        ]);
         $table->addColumn('user_id', 'integer', [
             'default' => null,
             'limit' => 11,
             'null' => false,
         ]);
-        $table->update();
+        $table->addColumn('created', 'datetime', [
+            'default' => null,
+            'null' => false,
+        ]);
+        $table->addColumn('modified', 'datetime', [
+            'default' => null,
+            'null' => false,
+        ]);
+        $table->create();
     }
 }

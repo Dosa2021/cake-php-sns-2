@@ -46,7 +46,7 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id);
         $microposts = (object)[];
-        $query = $this->Users->find()->contain('Microposts')->where(['id' => $this->Auth->user('id')]);
+        $query = $this->Users->find()->contain('Microposts')->where(['id' => $id ]);
         foreach ($query as $article) {
             $microposts = $article->microposts;
         }

@@ -52,16 +52,16 @@ class MicropostsController extends AppController
     {
         $micropost = $this->Microposts->newEntity();
         if ($this->request->is('post')) {
+            $this->request->data('user_id', $this->Auth->user('id'));
             $micropost = $this->Microposts->patchEntity($micropost, $this->request->getData());
             if ($this->Microposts->save($micropost)) {
                 $this->Flash->success(__('The micropost has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The micropost could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The micropost could not be saved. Please, try again.'));
+            return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
         }
-        $user = $this->Microposts->User->find('list', ['limit' => 200]);
-        $this->set(compact('micropost', 'user'));
+        $this->set(compact('micropost'));
     }
 
     /**
@@ -105,7 +105,6 @@ class MicropostsController extends AppController
         } else {
             $this->Flash->error(__('The micropost could not be deleted. Please, try again.'));
         }
-
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Users', 'action' => 'view', $this->Auth->user('id')]);
     }
 }

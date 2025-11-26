@@ -31,10 +31,15 @@ class MicropostsTable extends Table
         parent::initialize($config);
 
         $this->setTable('microposts');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
+
         $this->belongsTo('User', [
             'joinType' => 'LEFT OUTER',  //join方法
             'foreignKey' => 'user_id', //自分側のテーブルの参照カラム（相手側のmodel名_idなら省略できる。）
-            'bindingKey' => 'id',         ]);
+            'bindingKey' => 'id',]);
     }
 
     /**
@@ -52,6 +57,7 @@ class MicropostsTable extends Table
         $validator
             ->scalar('content')
             ->requirePresence('content', 'create')
+            ->notEmptyString('content')
             ->maxLength('content', 140);
 
         return $validator;
