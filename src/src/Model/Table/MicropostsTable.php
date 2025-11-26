@@ -57,6 +57,7 @@ class MicropostsTable extends Table
         $validator
             ->scalar('content')
             ->requirePresence('content', 'create')
+            ->notEmptyString('content')
             ->maxLength('content', 140);
 
         return $validator;

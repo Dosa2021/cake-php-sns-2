@@ -42,7 +42,14 @@ class PagesController extends AppController
     public function display(...$path)
     {
         $MicropostsTable = new MicropostsTable;
+        $users = $this->loadModel('Users');
         $micropost = $MicropostsTable->newEntity();
+        $feed_items = (object)[];
+
+        $query = $users->find()->contain('Microposts')->where(['id' => $this->Auth->user('id')]);
+        foreach ($query as $article) {
+            $feed_items = $article->microposts;
+        }
 
         $count = count($path);
         if (!$count) {
@@ -60,6 +67,7 @@ class PagesController extends AppController
             $subpage = $path[1];
         }
         $this->set(compact('page', 'subpage'));
+        $this->set('feed_items', $feed_items);
         $this->set('micropost', $micropost);
 
         try {
