@@ -28,15 +28,29 @@
     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
     <div class="col-md-8">
         <!-- TODO: リファクタリング -->
-        <?= $this->Form->postLink(
-            'フォローする',
-            [
-                'controller' => 'Relationships',
-                'action' => 'follow',
-                 $user->id
-            ],
-            ['class' => 'btn btn-primary']
-        ) ?>
+        <?php if ($auth['id'] !== $user->id): ?>
+            <?php if ($is_following): ?>
+                <?= $this->Form->postLink(
+                    'unfollow',
+                    [
+                        'controller' => 'Relationships',
+                        'action' => 'unfollow',
+                         $user->id
+                    ],
+                    ['class' => 'btn btn-primary']
+                ) ?>
+            <?php else: ?>
+                <?= $this->Form->postLink(
+                    'follow',
+                    [
+                        'controller' => 'Relationships',
+                        'action' => 'follow',
+                         $user->id
+                    ],
+                    ['class' => 'btn btn-primary']
+                ) ?>
+            <?php endif; ?>
+        <?php endif; ?>
         <h3>Microposts</h3>
         <ul>
             <?php foreach ($microposts as $micropost): ?>

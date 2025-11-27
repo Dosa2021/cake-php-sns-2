@@ -45,8 +45,11 @@ class PagesController extends AppController
         $users = $this->loadModel('Users');
         $micropost = $MicropostsTable->newEntity();
         $feed_items = (object)[];
-
+        $relations_users = $users->get($this->Auth->user('id'), [
+            'contain' => ['Following', 'Followers']
+        ]);
         $query = $users->find()->contain('Microposts')->where(['id' => $this->Auth->user('id')]);
+
         foreach ($query as $article) {
             $feed_items = $article->microposts;
         }
@@ -69,6 +72,7 @@ class PagesController extends AppController
         $this->set(compact('page', 'subpage'));
         $this->set('feed_items', $feed_items);
         $this->set('micropost', $micropost);
+        $this->set('relations_users', $relations_users);
 
         try {
             $this->render(implode('/', $path));

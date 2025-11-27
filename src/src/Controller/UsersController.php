@@ -46,13 +46,16 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id);
         $microposts = (object)[];
+        $is_following = $this->is_following($this->Auth->user('id'), $user->id);
         $query = $this->Users->find()->contain('Microposts')->where(['id' => $id ]);
+
         foreach ($query as $article) {
             $microposts = $article->microposts;
         }
 
         $this->set('user', $user);
         $this->set('microposts', $microposts);
+        $this->set('is_following', $is_following);
     }
 
     public function edit($id = null)
@@ -100,6 +103,15 @@ class UsersController extends AppController
     public function logout()
     {
         return $this->redirect($this->Auth->logout());
+    }
+
+    private function is_following($user_id, $target_id)
+    {
+        $Relationships = $this->loadModel('Relationships');
+        return $Relationships->exists([
+            'follower_id' => $user_id,
+            'followed_id' => $target_id
+        ]);
     }
 
     private function error_handling($errors = null)

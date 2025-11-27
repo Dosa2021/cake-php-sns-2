@@ -7,9 +7,14 @@
 
             <!-- TODO: リファクタリング -->
             <section class="stats">
-              11 <a href="">following</a>
-              <br>
-              100 <a href="">followers</a>
+              <a href="">
+                <?= count($relations_users->following) ?>
+                following
+              </a>
+              <a href="">
+                <?= count($relations_users->followers) ?>
+                followers
+              </a>
             </section>
             <section class="micropost_form">
                 <?= $this->element('micropost_form', ['micropost' => $micropost]) ?>

@@ -38,6 +38,22 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
         $this->hasMany('Microposts');
+
+        // 自分がフォローしているユーザー
+        $this->belongsToMany('Following', [
+            'className' => 'Users',
+            'joinTable' => 'Relationships',
+            'foreignKey' => 'follower_id',
+            'targetForeignKey' => 'followed_id',
+        ]);
+
+        // 自分をフォローしているユーザー
+        $this->belongsToMany('Followers', [
+            'className' => 'Users',
+            'joinTable' => 'Relationships',
+            'foreignKey' => 'followed_id',
+            'targetForeignKey' => 'follower_id',
+        ]);
     }
 
     /**
