@@ -27,6 +27,16 @@
     </table>
     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
     <div class="col-md-8">
+        <!-- TODO: リファクタリング -->
+        <?= $this->Form->postLink(
+            'フォローする',
+            [
+                'controller' => 'Relationships',
+                'action' => 'follow',
+                 $user->id
+            ],
+            ['class' => 'btn btn-primary']
+        ) ?>
         <h3>Microposts</h3>
         <ul>
             <?php foreach ($microposts as $micropost): ?>

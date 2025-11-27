@@ -4,6 +4,13 @@
           <aside class="col-md-4">
             <section class="user_info">
             </section>
+
+            <!-- TODO: リファクタリング -->
+            <section class="stats">
+              11 <a href="">following</a>
+              <br>
+              100 <a href="">followers</a>
+            </section>
             <section class="micropost_form">
                 <?= $this->element('micropost_form', ['micropost' => $micropost]) ?>
             </section>
