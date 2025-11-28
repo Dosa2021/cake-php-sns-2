@@ -4,18 +4,7 @@
           <aside class="col-md-4">
             <section class="user_info">
             </section>
-
-            <!-- TODO: リファクタリング -->
-            <section class="stats">
-              <a href="">
-                <?= count($relations_users->following) ?>
-                following
-              </a>
-              <a href="">
-                <?= count($relations_users->followers) ?>
-                followers
-              </a>
-            </section>
+            <?= $this->element('stats', ['relations_users' => $relations_users]) ?>
             <section class="micropost_form">
                 <?= $this->element('micropost_form', ['micropost' => $micropost]) ?>
             </section>

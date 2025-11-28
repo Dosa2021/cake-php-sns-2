@@ -105,6 +105,26 @@ class UsersController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
+    public function following($id = null)
+    {
+        $title = "Following";
+        $user = $this->Users->get($id);
+        $relations_users = $this->Users->get($id, [
+            'contain' => ['Following', 'Followers']
+        ]);
+
+        $this->set('title', $title);
+        $this->set('user', $user);
+        $this->set('relations_users', $relations_users);
+        $this->render('/Users/show_follow');
+    }
+
+    // TODO: 実装
+    // public function followers($id = null)
+    // {
+    //     $this->render('/Users/show_follow');
+    // }
+
     private function is_following($user_id, $target_id)
     {
         $Relationships = $this->loadModel('Relationships');
