@@ -33,6 +33,9 @@ https://qiita.com/n-sofue/items/8a3c50a74da214b29772#controller-1
 ・railsのパーシャル的なやつ
 https://blog.ver-1-0.net/2017/01/04/cakephp3-partial/
 
+14. フォロー機能
+https://chatgpt.com/c/6926ce23-d650-8323-ada6-7be2d49a4547
+
 -------------------------------------------
 トラブル
 
@@ -47,3 +50,8 @@ https://blog.ver-1-0.net/2017/01/04/cakephp3-partial/
 
 ②ログイン後、リダイレクトしない。。
   → debugとか仕込んじゃダメ。。。？？？
+
+  -------------------------------------------
+TODO
+
+・画像投稿

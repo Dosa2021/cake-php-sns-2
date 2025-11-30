@@ -69,6 +69,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/users/:id', ['controller' => 'Users', 'action' => 'view']);
     $routes->connect('/users/edit', ['controller' => 'Users', 'action' => 'edit']);
     $routes->connect('/users/delete', ['controller' => 'Users', 'action' => 'delete']);
+    $routes->connect('/following', ['controller' => 'Users', 'action' => 'following']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

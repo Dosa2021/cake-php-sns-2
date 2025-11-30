@@ -4,6 +4,7 @@
           <aside class="col-md-4">
             <section class="user_info">
             </section>
+            <?= $this->element('stats', ['relations_users' => $relations_users]) ?>
             <section class="micropost_form">
                 <?= $this->element('micropost_form', ['micropost' => $micropost]) ?>
             </section>

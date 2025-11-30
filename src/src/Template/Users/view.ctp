@@ -27,6 +27,12 @@
     </table>
     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
     <div class="col-md-8">
+        <?php if ($auth['id'] !== $user->id): ?>
+            <?= $this->element('follow_form', [
+                '$is_following' => $is_following,
+                '$user' => $user
+            ]) ?>
+        <?php endif; ?>
         <h3>Microposts</h3>
         <ul>
             <?php foreach ($microposts as $micropost): ?>
