@@ -20,6 +20,9 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
 use App\Model\Table\MicropostsTable;
 
+use Cake\ORM\TableRegistry;
+
+
 /**
  * Static content controller
  *
@@ -41,6 +44,14 @@ class PagesController extends AppController
      */
     public function display(...$path)
     {
+        $users_test = TableRegistry::getTableLocator()->get('Users');
+
+        $query = $users_test->find();
+
+        foreach ($query as $row) {
+            echo $row;
+        }
+
         $MicropostsTable = new MicropostsTable;
         $users = $this->loadModel('Users');
         $micropost = $MicropostsTable->newEntity();
