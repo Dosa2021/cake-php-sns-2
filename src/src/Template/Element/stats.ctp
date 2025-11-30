@@ -5,7 +5,7 @@
     [
       'controller' => 'Users',
       'action' => 'following',
-       $auth['id']], $relations_users
+       $auth['id']]
   ); ?>
   <!-- TODO: 実装 -->
   <a href="">
