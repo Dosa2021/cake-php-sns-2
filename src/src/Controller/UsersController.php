@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Log\Log;
 
 class UsersController extends AppController
 {
@@ -47,10 +48,22 @@ class UsersController extends AppController
         $user = $this->Users->get($id);
         $microposts = (object)[];
         $is_following = $this->is_following($this->Auth->user('id'), $user->id);
-        $query = $this->Users->find()->contain('Microposts')->where(['id' => $id ]);
+        $query = $this->Users
+            ->find()
+            ->contain('Microposts')
+            ->where(['id' => $id ])
+            ->mapReduce(
+                function ($rel, $key, $mr) {
+                    $rel->microposts[$key]->content = 'fugafuga';
+                    $mr->emitIntermediate($rel, 'hoge');
+                },
+                function ($article, $name, $mapReduce) {
+                    $mapReduce->emit($article, 'fugafuga');
+                }
+            );
 
-        foreach ($query as $article) {
-            $microposts = $article->microposts;
+        foreach ($query as $article => $hoge) {
+            $microposts = $hoge[0]->microposts;
         }
 
         $this->set('user', $user);
