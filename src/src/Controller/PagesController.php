@@ -46,11 +46,37 @@ class PagesController extends AppController
     {
         $users_test = TableRegistry::getTableLocator()->get('Users');
 
-        $query = $users_test->find();
+        // $query = $users_test->find();
 
-        foreach ($query as $row) {
-            echo $row;
-        }
+        // foreach ($query as $row) {
+        //     echo $row;
+        // }
+
+        // クエリの直接実行
+        // $query = $users_test->find()->all();
+        // $query = $users_test->find()->toList();
+        // debug($query);
+
+        // カラムから値リストを取得する¶
+        // $query = $users_test->find()->extract('name');
+        // debug($query);
+        // foreach ($query as $title) {
+        //     echo $title;
+        // }
+
+        // $query = $users_test->find('list');
+        // debug($query);
+        // foreach ($query as $id => $title) {
+        //     echo "$id : $title";
+        // }
+
+        // クエリーは Collection オブジェクトである
+        $keyValueList = $users_test
+            ->find()
+            ->map(function ($row) {
+                $row = 'fugafuga';
+                return $row;
+            });        
 
         $MicropostsTable = new MicropostsTable;
         $users = $this->loadModel('Users');
@@ -64,7 +90,19 @@ class PagesController extends AppController
             ]);
         }
 
-        $query = $users->find()->contain('Microposts')->where(['id' => $this->Auth->user('id')]);
+        $hoge = $users->find();
+        $query = $hoge
+            ->contain('Microposts')
+            ->select([
+                'Users.id',
+                'email',
+                'hoge' => $hoge->func()->coalesce([
+                    'Users.name' => 'identifier',
+                    'Users.email' => 'identifier'
+                ])
+            ])
+            ->where(['id' => $this->Auth->user('id')]);
+
         foreach ($query as $article) {
             $feed_items = $article->microposts;
         }
