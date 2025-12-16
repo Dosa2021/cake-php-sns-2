@@ -20,6 +20,10 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
 use App\Model\Table\MicropostsTable;
 
+use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
+
+
 /**
  * Static content controller
  *
@@ -41,6 +45,40 @@ class PagesController extends AppController
      */
     public function display(...$path)
     {
+        $users_test = TableRegistry::getTableLocator()->get('Users');
+
+        // $query = $users_test->find();
+
+        // foreach ($query as $row) {
+        //     echo $row;
+        // }
+
+        // クエリの直接実行
+        // $query = $users_test->find()->all();
+        // $query = $users_test->find()->toList();
+        // debug($query);
+
+        // カラムから値リストを取得する¶
+        // $query = $users_test->find()->extract('name');
+        // debug($query);
+        // foreach ($query as $title) {
+        //     echo $title;
+        // }
+
+        // $query = $users_test->find('list');
+        // debug($query);
+        // foreach ($query as $id => $title) {
+        //     echo "$id : $title";
+        // }
+
+        // クエリーは Collection オブジェクトである
+        $keyValueList = $users_test
+            ->find()
+            ->map(function ($row) {
+                $row = 'fugafuga';
+                return $row;
+            });        
+
         $MicropostsTable = new MicropostsTable;
         $users = $this->loadModel('Users');
         $micropost = $MicropostsTable->newEntity();
@@ -53,7 +91,29 @@ class PagesController extends AppController
             ]);
         }
 
-        $query = $users->find()->contain('Microposts')->where(['id' => $this->Auth->user('id')]);
+        $hoge = $users->find();
+        // Log::debug('かた-333----------------');
+        // Log::debug($this->Auth->user('id'));
+        // Log::debug(gettype($this->Auth->user('id')));
+        // gettype($this->Auth->user('id'));
+
+        $query = $hoge
+            ->contain('Microposts')
+            ->select([
+                'Users.id',
+                'email',
+                'hoge' => $hoge->func()->coalesce([
+                    'Users.name' => 'identifier',
+                    'Users.email' => 'identifier'
+                ])
+            ])
+            ->where([
+                'id = :userData',
+                'name = :hoge'
+            ])
+            ->bind(':userData', $this->Auth->user('id'), 'integer')
+            ->bind(':hoge', 'a', 'string');
+
         foreach ($query as $article) {
             $feed_items = $article->microposts;
         }
