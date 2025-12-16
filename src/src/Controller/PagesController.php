@@ -21,6 +21,7 @@ use Cake\View\Exception\MissingTemplateException;
 use App\Model\Table\MicropostsTable;
 
 use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
 
 
 /**
@@ -91,6 +92,11 @@ class PagesController extends AppController
         }
 
         $hoge = $users->find();
+        // Log::debug('かた-333----------------');
+        // Log::debug($this->Auth->user('id'));
+        // Log::debug(gettype($this->Auth->user('id')));
+        // gettype($this->Auth->user('id'));
+
         $query = $hoge
             ->contain('Microposts')
             ->select([
@@ -101,7 +107,12 @@ class PagesController extends AppController
                     'Users.email' => 'identifier'
                 ])
             ])
-            ->where(['id' => $this->Auth->user('id')]);
+            ->where([
+                'id = :userData',
+                'name = :hoge'
+            ])
+            ->bind(':userData', $this->Auth->user('id'), 'integer')
+            ->bind(':hoge', 'a', 'string');
 
         foreach ($query as $article) {
             $feed_items = $article->microposts;
