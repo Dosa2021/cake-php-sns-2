@@ -18,6 +18,7 @@ use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Log\Log;
 use App\Model\Table\MicropostsTable;
 
 /**
@@ -43,14 +44,24 @@ class PagesController extends AppController
     {
         $MicropostsTable = new MicropostsTable;
         $users = $this->loadModel('Users');
+        $user_informations = $this->getTableLocator()->get('UserInformations');
         $micropost = $MicropostsTable->newEntity();
         $feed_items = (object)[];
         $relations_users = (object)[];
+        $periods = [];
 
         if ($this->Auth->user()) {
             $relations_users = $users->get($this->Auth->user('id'), [
                 'contain' => ['Following', 'Followers']
             ]);
+        }
+
+        $query_user_informations = $user_informations
+            ->find()
+            ->select(['period'])
+            ->all();
+        foreach ($query_user_informations as $article) {
+            array_push($periods,$article->period);
         }
 
         $query = $users->find()->contain('Microposts')->where(['id' => $this->Auth->user('id')]);
@@ -77,6 +88,7 @@ class PagesController extends AppController
         $this->set('feed_items', $feed_items);
         $this->set('micropost', $micropost);
         $this->set('relations_users', $relations_users);
+        $this->set('periods', $periods);
 
         try {
             $this->render(implode('/', $path));

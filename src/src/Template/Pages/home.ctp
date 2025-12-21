@@ -21,8 +21,7 @@
               'action' => 'exportcsv'
             ]]) ?>
             <?php
-              // TODO:
-              echo $this->Form->control(null, ['type' => 'select', 'options' => ['2025/11', '2025/12']]);
+              echo $this->Form->control(null, ['type' => 'select', 'options' => $periods]);
             ?>
             <?= $this->Form->button(__('CSVダウンロード'), array('class'=>'btn btn-primary')) ?>
           <?= $this->Form->end() ?>
