@@ -87,4 +87,38 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+
+    public function exportcsv()
+    {
+        $this->response->type('csv'); // CSV header設定
+        $this->response->download('users.csv'); // ダウンロードファイル名
+
+        $users = [
+            ['1', 'a', 'a@com'],
+            ['2', 'b', 'b@com'],
+        ];
+
+        $csv = [];
+        $csv[] = ['ID', '名前', 'メール'];
+
+        foreach ($users as $user) {
+            $csv[] = [
+                $user[0],
+                $user[1],
+                $user[2]
+            ];
+        }
+
+        // CSV文字列を生成
+        $output = '';
+        foreach ($csv as $line) {
+            $output .= implode(',', $line) . "\n";
+        }
+
+        $response = $this->response
+            ->withType('csv')
+            ->withDownload('users.csv')
+            ->withStringBody($output);
+        return $response;
+    }
 }
