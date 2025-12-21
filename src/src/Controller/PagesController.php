@@ -61,7 +61,7 @@ class PagesController extends AppController
             ->select(['period'])
             ->all();
         foreach ($query_user_informations as $article) {
-            array_push($periods,$article->period);
+            $periods = array_merge($periods, array($article->period => $article->period));
         }
 
         $query = $users->find()->contain('Microposts')->where(['id' => $this->Auth->user('id')]);
@@ -102,22 +102,33 @@ class PagesController extends AppController
 
     public function exportcsv()
     {
+        $period = $this->request->getData('period');
+        $csv_content = [];
+        $user_informations = $this->getTableLocator()->get('UserInformations');
+        $query_user_informations = $user_informations
+            ->find()
+            ->where(['period' => $period])
+            ->all();
+
+        foreach ($query_user_informations as $article) {
+            array_push($csv_content, $article->period);
+            array_push($csv_content, $article->count_register_user);
+        }
+
         $this->response->type('csv'); // CSV header設定
-        $this->response->download('users.csv'); // ダウンロードファイル名
+        $this->response->download("{$period}.csv"); // ダウンロードファイル名
 
         $users = [
-            ['1', 'a', 'a@com'],
-            ['2', 'b', 'b@com'],
+            $csv_content
         ];
 
         $csv = [];
-        $csv[] = ['ID', '名前', 'メール'];
+        $csv[] = ['年月', '新規入会数'];
 
         foreach ($users as $user) {
             $csv[] = [
                 $user[0],
-                $user[1],
-                $user[2]
+                $user[1]
             ];
         }
 
@@ -129,7 +140,7 @@ class PagesController extends AppController
 
         $response = $this->response
             ->withType('csv')
-            ->withDownload('users.csv')
+            ->withDownload("{$period}.csv")
             ->withStringBody($output);
         return $response;
     }
